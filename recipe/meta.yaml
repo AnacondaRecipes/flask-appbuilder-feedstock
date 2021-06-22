@@ -29,7 +29,7 @@ requirements:
     - click >=6.7,<8
     - email-validator>=1.0.5,<2
     - flask >=0.12,<2
-    - flask-babel >=1
+    - flask-babel >=1,<2
     - flask-login >=0.3,<0.5
     - flask-openid >=1.2.5,<2
     # From upstream: SQLAlchemy 1.4.0 breaks flask-sqlalchemy and sqlalchemy-utils
@@ -47,7 +47,7 @@ requirements:
     - sqlalchemy-utils >=0.32.21,<1
     - werkzeug
     # 5/12/2021: extras_require from upstream source
-    - jmespath>=0.9.5
+    - jmespath >=0.9.5
     # 5/12/2021: marshmallow-enum 1.5.1 requires enum34
     - enum34
 
