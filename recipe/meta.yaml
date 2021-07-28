@@ -28,7 +28,7 @@ requirements:
     - python >=3.6
     - apispec[yaml] >=3.3,<4
     - colorama >=0.3.9,<1
-    - click >=6.7,<8
+    - click >=6.7,<9
     - email-validator >=1.0.5,<2
     - flask >=0.12,<2
     - flask-babel >=1
@@ -67,7 +67,13 @@ test:
     - flask_appbuilder.security.sqla
     - flask_appbuilder.tests
     - flask_appbuilder.translations
+  requires:
+    #- pip
   commands:
+    # 2021/7/28: flask-appbuilder 3.3.2 has requirement Flask-Babel<2,>=1, but we have only flask-babel 2.0.0
+    # and it works. The flask-appbuilder maintainers didn't update the version Flask-Babel in requirements two years, 
+    # but the last release 2.0.0 was at Aug 27, 2020.
+    #- pip check
     - fabmanager --help
 
 about:
