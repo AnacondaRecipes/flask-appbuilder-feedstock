@@ -70,7 +70,7 @@ test:
     - pip check
 
 about:
-  home: http://flaskappbuilder.pythonanywhere.com/
+  home: https://flaskappbuilder.pythonanywhere.com/
   license_file: LICENSE
   license: BSD-3-Clause
   license_family: BSD
