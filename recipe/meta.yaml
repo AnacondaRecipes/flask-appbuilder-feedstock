@@ -66,8 +66,8 @@ test:
   requires:
     - pip
   commands:
-    - fabmanager --help
     - pip check
+    - fabmanager --help
 
 about:
   home: https://flaskappbuilder.pythonanywhere.com/
