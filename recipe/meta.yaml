@@ -1,5 +1,5 @@
 {% set name = "Flask-AppBuilder" %}
-{% set version = "4.1.4" %}
+{% set version = "4.2.1" %}
 
 package:
   name: {{ name|lower }}
@@ -8,16 +8,16 @@ package:
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 601f71348152886ac801835101a6e4427cebf23f82865d9c2d5964ace8a1bfec
+  sha256: ad96eed0189fe6939aff3bba302adb189a64a94758cd6c95829eada91cc6c887
 
 build:
-  entry_points:
-    - fabmanager = flask_appbuilder.console:cli
   number: 0
-  script: {{ PYTHON }} -m pip install . -vv
   skip: True  # [py<37]
   # not all dependencies available on s390x
   skip: True  # [linux and s390x]
+  script: {{ PYTHON }} -m pip install . -vv
+  entry_points:
+    - fabmanager = flask_appbuilder.console:cli
 
 requirements:
   host:
@@ -28,7 +28,7 @@ requirements:
 
   run:
     - python
-    - apispec >=3.3,<4
+    - apispec >=3.3,<6
     - colorama >=0.3.9,<1
     - click >=8,<9
     - email_validator >=1.0.5,<2
