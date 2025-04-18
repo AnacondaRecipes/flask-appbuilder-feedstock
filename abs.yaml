@@ -1,0 +1,3 @@
+channels:
+  - https://staging.continuum.io/prefect/fs/limits-feedstock/pr3/f0e8d33
+  - https://staging.continuum.io/prefect/fs/flask-limiter-feedstock/pr1/da17d26
