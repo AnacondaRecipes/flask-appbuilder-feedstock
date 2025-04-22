@@ -14,7 +14,7 @@ build:
   entry_points:
     - fabmanager = flask_appbuilder.console:cli
   number: 0
-  script: {{ PYTHON }} -m pip install . -vv
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   skip: True  # [py<37]
 
 requirements:
