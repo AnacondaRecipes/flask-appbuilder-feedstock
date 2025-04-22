@@ -53,7 +53,6 @@ requirements:
 test:
   imports:
     - flask_appbuilder
-    - flask_appbuilder.api
     - flask_appbuilder.babel
     - flask_appbuilder.charts
     - flask_appbuilder.models
