@@ -15,7 +15,9 @@ build:
     - fabmanager = flask_appbuilder.console:cli
   number: 0
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  skip: True  # [py<37]
+  # flask-limiter not built for versions <py310
+  # https://github.com/alisaifee/flask-limiter/blob/8b111eb5f0298e5b095272027bf3194d2c999aa8/setup.py#L44
+  skip: True  # [py<310]
 
 requirements:
   host:
