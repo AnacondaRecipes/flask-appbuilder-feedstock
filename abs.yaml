@@ -1,2 +1,3 @@
 channels:
   - https://staging.continuum.io/prefect/fs/werkzeug-feedstock/pr13/817aec7
+  - https://staging.continuum.io/prefect/fs/pendulum-feedstock/pr4/8468560
