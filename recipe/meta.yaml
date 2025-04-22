@@ -78,7 +78,7 @@ about:
   summary: Simple and rapid application development framework, built on top of Flask.
   description: Simple and rapid application development framework, built on top of Flask, includes detailed security, auto CRUD generation for your models, google charts and much more.
   dev_url: https://github.com/dpgaspar/flask-appbuilder/
-  doc_url: https://flask-appbuilder.readthedocs.io/en/latest/
+  doc_url: https://flask-appbuilder.readthedocs.io
 
 extra:
   recipe-maintainers:
