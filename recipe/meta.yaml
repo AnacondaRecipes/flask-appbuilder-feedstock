@@ -48,7 +48,8 @@ requirements:
     - sqlalchemy <1.5.0
     - sqlalchemy-utils >=0.32.21,<1
     - wtforms <4
-    - werkzeug <4
+    - werkzeug <3  # [py>=313]
+    - werkzeug <4  # [py<313]
 
 test:
   imports:
