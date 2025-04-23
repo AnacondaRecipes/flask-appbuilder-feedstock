@@ -1,3 +1,2 @@
 channels:
-  - https://staging.continuum.io/prefect/fs/pendulum-feedstock/pr4/8468560
   - https://staging.continuum.io/prefect/fs/flask-feedstock/pr18/a289576
