@@ -6,13 +6,12 @@ package:
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: fdcdc7c1bc2166d45b4137debc8dff3ea90f9cc135006426c1e66d85ff0d3387
 
 build:
   entry_points:
-    - fabmanager = flask_appbuilder.console:cli
+    - fab=flask_appbuilder.cli:fab
   number: 0
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   # flask-limiter not built for versions <py310
@@ -41,48 +40,83 @@ requirements:
     - jsonschema >=3,<5
     - marshmallow >=3.18.0,<5
     - marshmallow-sqlalchemy >=0.22.0,<3.0.0
+    - python-dateutil >=2.3,<3
     - prison >=0.2.1,<1.0.0
     - pyjwt >=2.0.0,<3.0.0
-    - python-dateutil >=2.3,<3
     - sqlalchemy >=1.4.0,<3
     - sqlalchemy-utils >=0.32.21,<1
     - wtforms <4
     - werkzeug <4
-    - email-validator >=1.0.5
   run_constrained:
     - jmespath >=0.9.5
-    - Authlib >=0.14,<2.0.0
+    - authlib >=0.14,<2.0.0
     - flask-talisman >=1.0.0,<2.0
 
+# E   ModuleNotFoundError: No module named 'ldap'
+{% set ignore_tests = " --ignore=tests/security/test_auth_ldap.py" %}
+# E   ModuleNotFoundError: No module named 'hiro'
+{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_mvc_security.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_password_complexity.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_rate_limiter.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_addon.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_api.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_custom_indexview.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_fab_cli.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_menu.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_mvc.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_mvc_oauth.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_security_api.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_urltools.py" %}
+
 test:
+  source_files:
+    - tests
   imports:
     - flask_appbuilder
+    - flask_appbuilder._compat
+    - flask_appbuilder.actions
+    - flask_appbuilder.api
     - flask_appbuilder.babel
-    - flask_appbuilder.charts
+    - flask_appbuilder.basemanager
+    - flask_appbuilder.baseviews
+    - flask_appbuilder.charts.views
+    - flask_appbuilder.cli
+    - flask_appbuilder.const
+    - flask_appbuilder.exceptions
+    - flask_appbuilder.fields
+    - flask_appbuilder.fieldwidgets
+    - flask_appbuilder.filemanager
+    - flask_appbuilder.filters
+    - flask_appbuilder.forms
+    - flask_appbuilder.hooks
+    - flask_appbuilder.menu
     - flask_appbuilder.models
-    - flask_appbuilder.models.generic
-    - flask_appbuilder.models.mongoengine
-    - flask_appbuilder.models.sqla
     - flask_appbuilder.security
-    - flask_appbuilder.security.mongoengine
-    - flask_appbuilder.security.sqla
-    - flask_appbuilder.translations
+    - flask_appbuilder.urltools
     - flask_appbuilder.utils
+    - flask_appbuilder.validators
+    - flask_appbuilder.views
+    - flask_appbuilder.widgets
   requires:
     - pip
-    - pytz
+    - pytest
+    - parameterized
+    - authlib
+    - jmespath
   commands:
-    - fabmanager --help
     - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -v tests {{ ignore_tests }}
+    - fab --help
 
 about:
-  home: https://flaskappbuilder.pythonanywhere.com/
+  home: https://github.com/dpgaspar/flask-appbuilder
   license_file: LICENSE
   license: BSD-3-Clause
   license_family: BSD
   summary: Simple and rapid application development framework, built on top of Flask.
   description: Simple and rapid application development framework, built on top of Flask, includes detailed security, auto CRUD generation for your models, google charts and much more.
-  dev_url: https://github.com/dpgaspar/flask-appbuilder/
+  dev_url: https://github.com/dpgaspar/flask-appbuilder
   doc_url: https://flask-appbuilder.readthedocs.io
 
 extra:
