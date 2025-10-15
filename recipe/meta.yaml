@@ -16,7 +16,7 @@ build:
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   # flask-limiter not built for versions <py310
   # https://github.com/alisaifee/flask-limiter/blob/8b111eb5f0298e5b095272027bf3194d2c999aa8/setup.py#L44
-  skip: true  # [py<37]
+  skip: true  # [py<310]
 
 requirements:
   host:
