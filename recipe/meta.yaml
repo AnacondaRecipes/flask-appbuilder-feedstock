@@ -11,7 +11,7 @@ source:
 
 build:
   entry_points:
-    - fab=flask_appbuilder.cli:fab
+    - fab = flask_appbuilder.cli:fab
   number: 0
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   # flask-limiter not built for versions <py310
