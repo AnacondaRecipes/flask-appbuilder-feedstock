@@ -1,13 +1,26 @@
 {% set name = "Flask-AppBuilder" %}
-{% set version = "5.0.1" %}
+{% set version = "5.0.2" %}
+{% set ignore_tests = " --ignore=tests/security/test_auth_ldap.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_mvc_security.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_password_complexity.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_rate_limiter.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_addon.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_api.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_custom_indexview.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_fab_cli.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_menu.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_mvc.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_mvc_oauth.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_security_api.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_urltools.py" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: fdcdc7c1bc2166d45b4137debc8dff3ea90f9cc135006426c1e66d85ff0d3387
+  url: https://pypi.org/packages/source/f/flask-appbuilder/flask_appbuilder-5.0.2.tar.gz
+  sha256: f577b982a1ae40bc213238cedb93c39c67cf2199aa1e006e087ea1b3507d5450
 
 build:
   entry_points:
@@ -16,7 +29,7 @@ build:
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   # flask-limiter not built for versions <py310
   # https://github.com/alisaifee/flask-limiter/blob/8b111eb5f0298e5b095272027bf3194d2c999aa8/setup.py#L44
-  skip: true  # [py<310]
+  skip: true  # [py<37]
 
 requirements:
   host:
@@ -47,27 +60,14 @@ requirements:
     - sqlalchemy-utils >=0.32.21,<1
     - wtforms <4
     - werkzeug <4
+    - email-validator >=1.0.5
   run_constrained:
     - jmespath >=0.9.5
-    - authlib >=0.14,<2.0.0
+    - Authlib >=0.14,<2.0.0
     - flask-talisman >=1.0.0,<2.0
 
 # E   ModuleNotFoundError: No module named 'ldap'
-{% set ignore_tests = " --ignore=tests/security/test_auth_ldap.py" %}
 # E   ModuleNotFoundError: No module named 'hiro'
-{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_mvc_security.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_password_complexity.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_rate_limiter.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_addon.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_api.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_custom_indexview.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_fab_cli.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_menu.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_mvc.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_mvc_oauth.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_security_api.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_urltools.py" %}
-
 test:
   source_files:
     - tests
