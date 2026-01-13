@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/f/flask-appbuilder/flask_appbuilder-5.0.2.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0]|lower }}/{{ name|lower }}/{{ name.replace('-', '_')|lower }}-5.0.2.tar.gz
   sha256: f577b982a1ae40bc213238cedb93c39c67cf2199aa1e006e087ea1b3507d5450
 
 build:
@@ -23,6 +23,7 @@ requirements:
     - python
     - pip
     - setuptools
+    - wheel
   run:
     - python
     - apispec >=6.0.0,<7
@@ -30,7 +31,7 @@ requirements:
     - pyyaml >=3.10
     - colorama >=0.3.9,<1
     - click >=8,<9
-    - email-validator >=1.0.5
+    - email_validator >=1.0.5
     - flask >=2,<4
     - flask-babel >=3,<5
     - flask-limiter >3,<4
