@@ -1,18 +1,5 @@
 {% set name = "Flask-AppBuilder" %}
 {% set version = "5.0.2" %}
-{% set ignore_tests = " --ignore=tests/security/test_auth_ldap.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_mvc_security.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_password_complexity.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_rate_limiter.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_addon.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_api.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_custom_indexview.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_fab_cli.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_menu.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_mvc.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_mvc_oauth.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_security_api.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_urltools.py" %}
 
 package:
   name: {{ name|lower }}
@@ -36,13 +23,14 @@ requirements:
     - python
     - pip
     - setuptools
-    - wheel
   run:
     - python
     - apispec >=6.0.0,<7
+    # pyyaml is for apispec[yaml]
+    - pyyaml >=3.10
     - colorama >=0.3.9,<1
     - click >=8,<9
-    - email_validator >=1.0.5
+    - email-validator >=1.0.5
     - flask >=2,<4
     - flask-babel >=3,<5
     - flask-limiter >3,<4
@@ -60,14 +48,30 @@ requirements:
     - sqlalchemy-utils >=0.32.21,<1
     - wtforms <4
     - werkzeug <4
-    - email-validator >=1.0.5
   run_constrained:
+    # jmespath
     - jmespath >=0.9.5
+    # oauth
     - Authlib >=0.14,<2.0.0
+    # talisman
     - flask-talisman >=1.0.0,<2.0
 
 # E   ModuleNotFoundError: No module named 'ldap'
+{% set ignore_tests = " --ignore=tests/security/test_auth_ldap.py" %}
 # E   ModuleNotFoundError: No module named 'hiro'
+{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_mvc_security.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_password_complexity.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_rate_limiter.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_addon.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_api.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_custom_indexview.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_fab_cli.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_menu.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_mvc.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_mvc_oauth.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_security_api.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_urltools.py" %}
+
 test:
   source_files:
     - tests
