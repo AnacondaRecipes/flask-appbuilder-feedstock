@@ -1,13 +1,13 @@
 {% set name = "Flask-AppBuilder" %}
-{% set version = "5.0.1" %}
+{% set version = "5.0.2" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: fdcdc7c1bc2166d45b4137debc8dff3ea90f9cc135006426c1e66d85ff0d3387
+  url: https://pypi.org/packages/source/{{ name[0]|lower }}/{{ name|lower }}/{{ name.replace('-', '_')|lower }}-5.0.2.tar.gz
+  sha256: f577b982a1ae40bc213238cedb93c39c67cf2199aa1e006e087ea1b3507d5450
 
 build:
   entry_points:
@@ -16,7 +16,7 @@ build:
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   # flask-limiter not built for versions <py310
   # https://github.com/alisaifee/flask-limiter/blob/8b111eb5f0298e5b095272027bf3194d2c999aa8/setup.py#L44
-  skip: true  # [py<310]
+  skip: true  # [py<37]
 
 requirements:
   host:
@@ -27,6 +27,8 @@ requirements:
   run:
     - python
     - apispec >=6.0.0,<7
+    # pyyaml is for apispec[yaml]
+    - pyyaml >=3.10
     - colorama >=0.3.9,<1
     - click >=8,<9
     - email_validator >=1.0.5
@@ -48,8 +50,11 @@ requirements:
     - wtforms <4
     - werkzeug <4
   run_constrained:
+    # jmespath
     - jmespath >=0.9.5
-    - authlib >=0.14,<2.0.0
+    # oauth
+    - Authlib >=0.14,<2.0.0
+    # talisman
     - flask-talisman >=1.0.0,<2.0
 
 # E   ModuleNotFoundError: No module named 'ldap'
