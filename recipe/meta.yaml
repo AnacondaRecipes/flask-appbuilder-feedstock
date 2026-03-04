@@ -1,6 +1,21 @@
 {% set name = "Flask-AppBuilder" %}
-{% set version = "5.0.2" %}
+{% set version = "5.1.0" %}
+{% set ignore_tests = " --ignore=tests/security/test_auth_ldap.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_mvc_security.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_password_complexity.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_rate_limiter.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_addon.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_api.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_custom_indexview.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_fab_cli.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_menu.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_mvc.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_mvc_oauth.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_security_api.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_urltools.py" %}
 
+# E   ModuleNotFoundError: No module named 'ldap'
+# E   ModuleNotFoundError: No module named 'hiro'
 package:
   name: {{ name|lower }}
   version: {{ version }}
@@ -56,22 +71,6 @@ requirements:
     - Authlib >=0.14,<2.0.0
     # talisman
     - flask-talisman >=1.0.0,<2.0
-
-# E   ModuleNotFoundError: No module named 'ldap'
-{% set ignore_tests = " --ignore=tests/security/test_auth_ldap.py" %}
-# E   ModuleNotFoundError: No module named 'hiro'
-{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_mvc_security.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_password_complexity.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_rate_limiter.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_addon.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_api.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_custom_indexview.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_fab_cli.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_menu.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_mvc.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_mvc_oauth.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_security_api.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_urltools.py" %}
 
 test:
   source_files:
