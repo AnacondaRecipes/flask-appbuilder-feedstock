@@ -1,27 +1,23 @@
 {% set name = "Flask-AppBuilder" %}
-{% set version = "5.0.2" %}
+{% set version = "5.1.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0]|lower }}/{{ name|lower }}/{{ name.replace('-', '_')|lower }}-5.0.2.tar.gz
-  sha256: f577b982a1ae40bc213238cedb93c39c67cf2199aa1e006e087ea1b3507d5450
+  url: https://pypi.org/packages/source/{{ name[0]|lower }}/{{ name|lower }}/{{ name.replace('-', '_')|lower }}-{{ version }}.tar.gz
+  sha256: b45847353ae9ab7984b9625e43658742559d2c056df4bfe10ad0b49a8b7737b4
 
 build:
-  entry_points:
-    - fab = flask_appbuilder.cli:fab
   number: 0
-  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  # flask-limiter not built for versions <py310
-  # https://github.com/alisaifee/flask-limiter/blob/8b111eb5f0298e5b095272027bf3194d2c999aa8/setup.py#L44
   skip: true  # [py<37]
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   host:
-    - python
     - pip
+    - python
     - setuptools
     - wheel
   run:
@@ -54,6 +50,7 @@ requirements:
     - jmespath >=0.9.5
     # oauth
     - Authlib >=0.14,<2.0.0
+    - python3-saml>=1.15.0
     # talisman
     - flask-talisman >=1.0.0,<2.0
 
@@ -110,15 +107,14 @@ test:
     - jmespath
   commands:
     - pip check
-    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - python -c "from importlib.metadata import version; assert(version('{{ name|lower|replace("-", "_") }}')=='{{ version }}')"
     - pytest -v tests {{ ignore_tests }}
-    - fab --help
 
 about:
   home: https://github.com/dpgaspar/flask-appbuilder
-  license_file: LICENSE
   license: BSD-3-Clause
   license_family: BSD
+  license_file: LICENSE
   summary: Simple and rapid application development framework, built on top of Flask.
   description: Simple and rapid application development framework, built on top of Flask, includes detailed security, auto CRUD generation for your models, google charts and much more.
   dev_url: https://github.com/dpgaspar/flask-appbuilder
