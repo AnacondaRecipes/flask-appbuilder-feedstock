@@ -1,13 +1,28 @@
 {% set name = "Flask-AppBuilder" %}
-{% set version = "5.1.0" %}
+{% set version = "5.2.2" %}
+{% set ignore_tests = " --ignore=tests/security/test_auth_ldap.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_mvc_security.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_password_complexity.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_rate_limiter.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_addon.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_api.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_custom_indexview.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_fab_cli.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_menu.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_mvc.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_mvc_oauth.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_security_api.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_urltools.py" %}
 
+# E   ModuleNotFoundError: No module named 'ldap'
+# E   ModuleNotFoundError: No module named 'hiro'
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
   url: https://pypi.org/packages/source/{{ name[0]|lower }}/{{ name|lower }}/{{ name.replace('-', '_')|lower }}-{{ version }}.tar.gz
-  sha256: b45847353ae9ab7984b9625e43658742559d2c056df4bfe10ad0b49a8b7737b4
+  sha256: 0527623394b40b859ff47056e3621a61eefaaa16ccf188f272c64294307587ca
 
 build:
   number: 0
@@ -30,7 +45,7 @@ requirements:
     - email_validator >=1.0.5
     - flask >=2,<4
     - flask-babel >=3,<5
-    - flask-limiter >3,<4
+    - flask-limiter >3,<5
     - flask-login >=0.3,<0.7
     - flask-sqlalchemy >=2.4.0,<4
     - flask-wtf >=0.14.2,<2
@@ -50,25 +65,9 @@ requirements:
     - jmespath >=0.9.5
     # oauth
     - Authlib >=0.14,<2.0.0
-    - python3-saml>=1.15.0
+    - python3-saml >=1.15.0
     # talisman
     - flask-talisman >=1.0.0,<2.0
-
-# E   ModuleNotFoundError: No module named 'ldap'
-{% set ignore_tests = " --ignore=tests/security/test_auth_ldap.py" %}
-# E   ModuleNotFoundError: No module named 'hiro'
-{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_mvc_security.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_password_complexity.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_rate_limiter.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_addon.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_api.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_custom_indexview.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_fab_cli.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_menu.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_mvc.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_mvc_oauth.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_security_api.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_urltools.py" %}
 
 test:
   source_files:
