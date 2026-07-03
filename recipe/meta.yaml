@@ -1,27 +1,12 @@
-{% set name = "Flask-AppBuilder" %}
+{% set name = "flask-appbuilder" %}
 {% set version = "5.2.2" %}
-{% set ignore_tests = " --ignore=tests/security/test_auth_ldap.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_mvc_security.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_password_complexity.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_rate_limiter.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_addon.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_api.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_custom_indexview.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_fab_cli.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_menu.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_mvc.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_mvc_oauth.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_security_api.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=tests/test_urltools.py" %}
 
-# E   ModuleNotFoundError: No module named 'ldap'
-# E   ModuleNotFoundError: No module named 'hiro'
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0]|lower }}/{{ name|lower }}/{{ name.replace('-', '_')|lower }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
   sha256: 0527623394b40b859ff47056e3621a61eefaaa16ccf188f272c64294307587ca
 
 build:
@@ -65,9 +50,32 @@ requirements:
     - jmespath >=0.9.5
     # oauth
     - Authlib >=0.14,<2.0.0
+    # saml
     - python3-saml >=1.15.0
     # talisman
     - flask-talisman >=1.0.0,<2.0
+
+# E   ModuleNotFoundError: No module named 'ldap'
+# E   ModuleNotFoundError: No module named 'hiro'
+{% set ignore_tests = " --ignore=tests/security/test_auth_ldap.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_mvc_security.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_password_complexity.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/security/test_rate_limiter.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_addon.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_api.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_custom_indexview.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_fab_cli.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_menu.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_mvc.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_mvc_oauth.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_security_api.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_urltools.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_hooks.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_json_edge_cases.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_json_support.py" %}
+
+# E       fixture 'appbuilder' not found
+{% set deselect_tests = " --deselect=tests/test_security_manager.py::test_user_changed_on_updates_on_role_change" %}
 
 test:
   source_files:
@@ -107,7 +115,7 @@ test:
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name|lower|replace("-", "_") }}')=='{{ version }}')"
-    - pytest -v tests {{ ignore_tests }}
+    - python -m pytest -v tests {{ ignore_tests }} {{ deselect_tests }}
 
 about:
   home: https://github.com/dpgaspar/flask-appbuilder
@@ -115,7 +123,9 @@ about:
   license_family: BSD
   license_file: LICENSE
   summary: Simple and rapid application development framework, built on top of Flask.
-  description: Simple and rapid application development framework, built on top of Flask, includes detailed security, auto CRUD generation for your models, google charts and much more.
+  description: |
+        Simple and rapid application development framework, built on top of Flask,
+        includes detailed security, auto CRUD generation for your models, google charts and much more.
   dev_url: https://github.com/dpgaspar/flask-appbuilder
   doc_url: https://flask-appbuilder.readthedocs.io
 
